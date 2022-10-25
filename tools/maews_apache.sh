@@ -35,7 +35,7 @@ ${GREEN}   __  ___       ${SPURPLE} _      ______${RESET}
 ${GREEN}  /  |/  /__ ____${SPURPLE}| | /| / / __/${RESET}
 ${GREEN} / /|_/ / _ '/ -_${SPURPLE}) |/ |/ /\ \  ${RESET}
 ${GREEN}/_/  /_/\_,_/\__/${SPURPLE}|__/|__/___/ ${RESET}v{1.2#${YELLOW}dev${RESET}} by @Sianturi1337
-${SPURPLE}MaeWS${RESET} - ${SCYAN}LE${RESET}/${SCYAN}AMP${RESET} Automated installer\n\n"
+${SPURPLE}MaeWS${RESET} - ${SCYAN}LE${RESET}/${SCYAN}AMP${RESET} Automated Installer\n\n"
 
 }
 
