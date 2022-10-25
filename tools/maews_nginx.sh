@@ -36,7 +36,7 @@ ${GREEN}  /  |/  /__ ____${SPURPLE}| | /| / / __/${RESET}
 ${GREEN} / /|_/ / _ '/ -_${SPURPLE}) |/ |/ /\ \  ${RESET}
 ${GREEN}/_/  /_/\_,_/\__/${SPURPLE}|__/|__/___/ ${RESET}v{1.2#${YELLOW}dev${RESET}} by @sianturi1337
 
-${SPURPLE}MaeWS${RESET} - ${SCYAN}LE${RESET}/${SCYAN}AMP${RESET} Automated installer\n\n"
+${SPURPLE}MaeWS${RESET} - ${SCYAN}LE${RESET}/${SCYAN}AMP${RESET} Automated Installer\n\n"
 
 }
 
@@ -44,10 +44,10 @@ checkPrivileges(){
 
     echo "[*] start at $(date)"
     echo -e "[*] ${GREEN}MaeWS${RESET} - ${SPURPLE}LEMP Edition${RESET} (${GREEN}Linux${RESET}, ${GREEN}Nginx${RESET}, ${GREEN}MySQL${RESET}, ${GREEN}PHP${RESET})\n\n"
-    echo -e "[${LBLUE}${TIME}${RESET}] [${YELLOW}WARNING${RESET}] make sure you install the ${GREEN}MaeLEMP${RESET} on a clean server${reset}"
+    echo -e "[${LBLUE}${TIME}${RESET}] [${YELLOW}WARNING${RESET}] Make sure you install the ${GREEN}MaeLEMP${RESET} on a clean server${reset}"
 
     if [ "$EUID" -ne 0 ]; then
-        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] oops! You must run this tools using root/superuser privileges."
+        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Oops! You must run this tools using root/superuser privileges."
     exit
     fi
 
@@ -55,69 +55,69 @@ checkPrivileges(){
 
 checkOS_package() {
 
-    echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] checking OS for Compability"
+    echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Checking OS for Compability"
     if [[ ${OSTYPE} == "linux-gnu" ]]; then
         if [[ "$(cat /etc/os-release | grep PRETTY_NAME | cut -d '"' -f2 | awk '{print $1;}')" =~ ^(Ubuntu|Debian)$ ]]; then
             if command -v mariadb &> /dev/null; then
                 echo -e "[${LBLUE}${TIME}${RESET}] [${LGREEN}INFO${RESET}] ${GREEN}MySQL${RESET} is already installed"
             else
                 echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] ${RED}MySQL${RESET} is not installed, trying to install..."
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] updating repository ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Updating repository ------->> "
                 `sudo apt -qq -y update &> /dev/null` #Updating repository with silent options
                 wait
                 echo -e "[${GREEN}DONE${RESET}]"
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] installing MySQL ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Installing MySQL ------->> "
                 `sudo apt install mariadb-server mariadb-client -y -qq &> /dev/null`
                 echo -e "[${GREEN}DONE${RESET}]"
                 if [[ -z $(apt -qq list mariadb-server &> /dev/null) ]]; then
-                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] failed to install MySQL (MariaDB), check manually required."
+                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Failed to install MySQL (MariaDB), check manually required."
                 fi
             fi
             if command -v nginx &> /dev/null; then
                 echo -e "[${LBLUE}${TIME}${RESET}] [${LGREEN}INFO${RESET}] ${GREEN}Nginx${RESET} is already installed"
             else
                 echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] ${RED}Nginx${RESET} is not installed, trying to install..."
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] updating repository ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Updating repository ------->> "
                 `sudo apt -qq -y update &> /dev/null` #Updating repository with silent options
                 wait
                 echo -e "[${GREEN}DONE${RESET}]"
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] installing Nginx ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Installing Nginx ------->> "
                 `sudo apt install nginx -y -qq &> /dev/null`
                 echo -e "[${GREEN}DONE${RESET}]"
                 if [[ -z $(apt -qq list Nginx &> /dev/null) ]]; then
-                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] failed to install Nginx, check manually required."
+                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Failed to install Nginx, check manually required."
                 fi
             fi
             if command -v php &> /dev/null; then
                 echo -e "[${LBLUE}${TIME}${RESET}] [${LGREEN}INFO${RESET}] ${GREEN}PHP${RESET} is already installed"
             else
                 echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] ${RED}PHP${RESET} is not installed, trying to install..."
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] installing APT libraries ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Installing APT libraries ------->> "
                 `sudo apt install lsb-release ca-certificates apt-transport-https software-properties-common -y -qq &> /dev/null`
                 echo -e "[${GREEN}DONE${RESET}]"
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] adding ${GREEN}ppa:ondrej/php${RESET} to repository "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Adding ${GREEN}ppa:ondrej/php${RESET} to repository "
                 `add-apt-repository -y ppa:ondrej/php > /dev/null 2>&1`
                 echo -e "[${GREEN}DONE${RESET}]"
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] updating repository ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Updating repository ------->> "
                 `sudo apt -qq -y update &> /dev/null` #Updating repository with silent options
                 wait
                 echo -e "[${GREEN}DONE${RESET}]"
-                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] installing PHP ------->> "
+                echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Installing PHP ------->> "
                 `sudo apt install php-fpm php-mysql php-cli php-zip php-mbstring php-imap php-common php-redis php-xml -y -qq &> /dev/null`
                 echo -e "[${GREEN}DONE${RESET}]"
                 if [[ -z $(apt -qq list php 2>/dev/null) ]]; then
-                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] failed to install PHP, check manually required."
+                    echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Failed to install PHP, check manually required."
                 fi
             fi
                     
         else
             echo -e "[${LBLUE}${TIME}${RESET}] [${LRED}ERROR${RESET}] OS not compatible, Your Operating System is ${GREEN}${OSTYPE}${RESET}"
-            echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] supported OS ${GREEN}Debian${RESET} or ${GREEN}Ubuntu${RESET} (linux-gnu)"
+            echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Supported OS ${GREEN}Debian${RESET} or ${GREEN}Ubuntu${RESET} (linux-gnu)"
             exit
         fi
     else
         echo -e "[${LBLUE}${TIME}${RESET}] [${LRED}ERROR${RESET}] OS not compatible, Your Operating System is ${GREEN}${OSTYPE}${RESET}"
-        echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] supported OS ${GREEN}Debian${RESET} or ${GREEN}Ubuntu${RESET} (linux-gnu)"
+        echo -e "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Supported OS ${GREEN}Debian${RESET} or ${GREEN}Ubuntu${RESET} (linux-gnu)"
         exit
     fi
 
@@ -125,7 +125,7 @@ checkOS_package() {
 
 checkService(){
 
-    echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] enabling Nginx service ------->> "
+    echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Enabling Nginx service ------->> "
     `systemctl enable nginx &>/dev/null && systemctl restart nginx &>/dev/null`
     wait
     echo -e "[${GREEN}DONE${RESET}]"
@@ -134,9 +134,9 @@ checkService(){
         echo -e "[${GREEN}ACTIVE${RESET}]"
     else
         echo -e "[${LRED}ERROR${RESET}]"
-        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] failed to start Nginx, check manually required"
+        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Failed to start Nginx, check manually required"
     fi
-    echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] enabling MySQL (MariaDB) service ------->> "
+    echo -ne "[${LBLUE}${TIME}${RESET}] [${GREEN}INFO${RESET}] Enabling MySQL (MariaDB) service ------->> "
     `systemctl enable mysql &>/dev/null && systemctl restart mysql &>/dev/null`
     wait
     echo -e "[${GREEN}DONE${RESET}]"
@@ -145,7 +145,7 @@ checkService(){
         echo -e "[${GREEN}ACTIVE${RESET}]"
     else
         echo -e "[${LRED}ERROR${RESET}]"
-        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] failed to start MySQL (MariaDB), check manually required"
+        echo -e "[${LBLUE}${TIME}${RESET}] [${RED}ERROR${RESET}] Failed to start MySQL (MariaDB), check manually required"
     fi
 
     echo "[*] ended at $(date)"
