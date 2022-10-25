@@ -1,4 +1,4 @@
-# MaeWS - Web Server Auto Installer
+# MaeWS - LE/AMP Automated Installer.
 ![MaeWS](https://github.com/Sianturi1337/MaeWS/blob/main/maews_face.png?raw=true)
 
 MaeWS is automation tools for installing web server.
