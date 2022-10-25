@@ -1,65 +1,70 @@
 #!/bin/bash
 
-red="\e[0;91m"
-blue="\e[0;94m"
-expand_bg="\e[K"
-blue_bg="\e[0;104m${expand_bg}"
-red_bg="\e[0;101m${expand_bg}"
-green_bg="\e[0;102m${expand_bg}"
-green="\e[0;92m"
-white="\e[0;97m"
-bold="\e[1m"
-uline="\e[4m"
-reset="\e[0m"
+#### Colors Output
 
-sugeng_rawuh() {
-    echo -e "
-###############################################################################
-# Welcome to MaeWS - WEB SERVER AUTO INSTALLER                                #                    
-# MaeWS is based on LAMP and LEMP                                             #
-# LEMP/LAMP is Linux, Nginx/Apache, MySQL, PHP                                #
-# Description: with this tools, you can install LAMP/LEMP automatically       #
-# Author : Sianturi1337 - Tinton Arya Permana Sianturi                        #
-# Contact Me : sianturi[at]tintonarya.com                                     #
-###############################################################################
-"
+RESET="\033[0m"			# Normal Colour
+RED="\033[0;31m" 		# Error / Issues
+GREEN="\033[0;32m"		# Successful       
+BOLD="\033[01;01m"    	# Highlight
+WHITE="\033[1;37m"		# BOLD
+YELLOW="\033[1;33m"		# Warning
+PADDING="  "
+DPADDING="\t\t"
+
+
+#### Other Colors / Status Code
+
+LGRAY="\033[0;37m"		# Light Gray
+LRED="\033[1;31m"		# Light Red
+LGREEN="\033[1;32m"		# Light GREEN
+LBLUE="\033[1;34m"		# Light Blue
+LPURPLE="\033[1;35m"	# Light Purple
+LCYAN="\033[1;36m"		# Light Cyan
+SORANGE="\033[0;33m"	# Standar Orange
+SBLUE="\033[0;34m"		# Standar Blue
+SPURPLE="\033[0;35m"	# Standar Purple      
+SCYAN="\033[0;36m"		# Standar Cyan
+DGRAY="\033[1;30m"		# Dark Gray
+
+banner(){
+clear
+echo -e "
+${GREEN}   __  ___       ${SPURPLE} _      ______${RESET}
+${GREEN}  /  |/  /__ ____${SPURPLE}| | /| / / __/${RESET}
+${GREEN} / /|_/ / _ '/ -_${SPURPLE}) |/ |/ /\ \  ${RESET}
+${GREEN}/_/  /_/\_,_/\__/${SPURPLE}|__/|__/___/ ${RESET}v{1.2#${YELLOW}dev${RESET}} by @sianturi1337
+
+${SPURPLE}MaeWS${RESET} - ${SCYAN}LE${RESET}/${SCYAN}AMP${RESET} Automated installer\n\n"
 }
+optMenu(){
 
-sugeng_rawuh
+    optNginx=$(echo -ne "MaeWS based on ${GREEN}Nginx${RESET}")
+    optApache=$(echo -ne "MaeWS based on ${SORANGE}Apache${RESET}")
+    optExit=$(echo -ne "Exit from ${SPURPLE}MaeWS${RESET}")
+    PS3="Select your Web Server: "
 
-iki_pilihanmu() {
-        echo -e "\n
-###############################################################################
-#                       MaeWS - Choose LAMP or LEMP                           #
-###############################################################################    
-"
-}
-
-iki_pilihanmu
-
-koe_dikonmilih() {
-PS3="Select your Web Server please: "
-
-select mae in "MaeWS based on Nginx" "MaeWS based on Apache" "Exit from MaeWS"
-do
-    case $mae in
-        "MaeWS based on Nginx")
+    select maeOpt in "${optNginx}" "${optApache}" "${optExit}"
+    do
+        case $maeOpt in
+            "${optNginx}")
+                cd tools
+                chmod +x maews_nginx.sh
+                ./maews_nginx.sh 
+                break;;
+            "${optApache}")
             cd tools
-            chmod +x maews_nginx.sh
-            ./maews_nginx.sh 
+            chmod +x maews_apache.sh
+            ./maews_apache.sh 
             break;;
-        "MaeWS based on Apache")
-           cd tools
-           chmod +x maews_apache.sh
-           ./maews_apache.sh 
-           break;;
-        "Exit from MaeWS")
-           echo -e "${green}${bold}\n[MESSAGE] : Good Bye! Thank you for using MaeWS AUTO INSTALLER.\n${reset}"
-           break;;
-        *)
-           echo -e "${red}${bold}\n[ERROR] : Oops!! Your selection does not match the above options. try again!!\n${reset}"
-    esac
-done
+            "${optExit}")
+            echo -e "${green}${bold}\n[MESSAGE] : Good Bye! Thank you for using MaeWS AUTO INSTALLER.\n${reset}"
+            break;;
+            *)
+            echo -e "${red}${bold}\n[ERROR] : Oops!! Your selection does not match the above options. try again!!\n${reset}"
+        esac
+    done
+
 }
 
-koe_dikonmilih
+banner
+optMenu
